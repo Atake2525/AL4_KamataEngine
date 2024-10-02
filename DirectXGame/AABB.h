@@ -1,7 +1,7 @@
 #pragma once
-#include "Vector3.h"
+#include "math\Vector3.h"
 
 struct AABB {
-	Vector3 min;
-	Vector3 max;
+	KamataEngine::Vector3 min;
+	KamataEngine::Vector3 max;
 };

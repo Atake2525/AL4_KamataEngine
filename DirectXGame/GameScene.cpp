@@ -1,10 +1,13 @@
 ﻿#include "GameScene.h"
 #include <cassert>
+#include <3d\AxisIndicator.h>
+using namespace KamataEngine;
 
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-
+	delete player_;
+	delete debugCamera_;
 }
 
 void GameScene::Initialize() {
@@ -12,6 +15,13 @@ void GameScene::Initialize() {
 	dxCommon_ = KamataEngine::DirectXCommon::GetInstance();
 	input_ = KamataEngine::Input::GetInstance();
 	audio_ = KamataEngine::Audio::GetInstance();
+
+	debugCamera_ = new DebugCamera(1280, 720);
+
+	// 軸方向表示の表示を有効にする
+	AxisIndicator::GetInstance()->SetVisible(true);
+	// 軸方向表示が参照するカメラを指定する(アドレス無し)
+	AxisIndicator::GetInstance()->SetTargetCamera(&camera_);
 
 	ModelPlayer_ = KamataEngine::Model::CreateFromOBJ("enemy");
 	player_ = new Player();
@@ -24,6 +34,22 @@ void GameScene::Initialize() {
 
 void GameScene::Update() { 
 	player_->Update();
+
+#ifdef _DEBUG
+	if (input_->TriggerKey(0)) {
+		isDebugCameraActive_ = !isDebugCameraActive_;
+	}
+#endif // DEBUG
+	if (isDebugCameraActive_) {
+		debugCamera_->Update();
+		camera_.matView = debugCamera_->GetCamera().matView;
+		camera_.matProjection = debugCamera_->GetCamera().matProjection;
+		// カメラ行列の転送
+		camera_.TransferMatrix();
+	} else {
+		// カメラ行列の更新と転送
+		camera_.UpdateMatrix();
+	}
 }
 
 void GameScene::Draw() {

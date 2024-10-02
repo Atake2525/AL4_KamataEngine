@@ -13,8 +13,9 @@
 #include <math\Vector3.h>
 #include <math\Vector4.h>
 #include <cmath>
-#include <3d\DebugCamera.h>
+#include "3d/DebugCamera.h"
 #include "Player.h"
+
 
 /// <summary>
 /// ゲームシーン
@@ -52,11 +53,16 @@ private: // メンバ変数
 	KamataEngine::Input* input_ = nullptr;
 	KamataEngine::Audio* audio_ = nullptr;
 
+	// デバッグカメラ
+	bool isDebugCameraActive_ = false;
+	KamataEngine::DebugCamera* debugCamera_ = nullptr;
+
 	KamataEngine::WorldTransform worldTransform_;
 	KamataEngine::Camera camera_;
 
 	Player* player_ = nullptr;
 	KamataEngine::Model* ModelPlayer_ = nullptr;
+
 
 	/// <summary>
 	/// ゲームシーン用
