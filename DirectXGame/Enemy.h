@@ -5,6 +5,8 @@
 #include "math/MathUtility.h"
 #include "kMath.h"
 #include "base/TextureManager.h"
+#include "EnemyBullet.h"
+#include <list>
 
 // 行動フェーズ
 enum class Phase {
@@ -12,8 +14,14 @@ enum class Phase {
 	Leave,    // 離脱する
 };
 
+class EnemyBullet;
+
 class Enemy {
 public:
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~Enemy();
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -42,4 +50,11 @@ private:
 	Phase phase_ = Phase::Approach;
 	KamataEngine::Vector3 ApproachVelocity = {0.0f, 0.0f, -0.02f};
 	KamataEngine::Vector3 LeaveVelocity = {-0.1f, 0.05f, 0.02f};
+
+	// 弾
+	std::list<EnemyBullet*> bullets_;
+	/// <summary>
+	/// 弾発射
+	/// </summary>
+	void Fire();
 };
