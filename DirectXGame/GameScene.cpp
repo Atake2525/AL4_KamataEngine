@@ -78,7 +78,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	player_->Draw();
+	player_->Draw(camera_);
 
 	// 3Dオブジェクト描画後処理
 	KamataEngine::Model::PostDraw();

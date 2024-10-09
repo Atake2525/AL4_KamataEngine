@@ -7,6 +7,9 @@
 #include <input\Input.h>
 #include <math\Vector3.h>
 #include "kMath.h"
+#include "PlayerBullet.h"
+
+class PlayerBullet;
 
 class Player {
 public:
@@ -21,7 +24,7 @@ public:
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	void Draw(KamataEngine::Camera& camera);
 
 private:
 	KamataEngine::Input* input_ = nullptr;
@@ -30,6 +33,10 @@ private:
 	KamataEngine::Model* model_ = nullptr;
 	KamataEngine::ObjectColor objectColor_;
 
+	void Move();
+	void wolk();
+	void Rotate();
+
 
 	// キャラクターの速さ
 	const float kCharacterSpeed = 0.2f;
@@ -37,6 +44,12 @@ private:
 	const float kMoveLimitX = 35.0f;
 	const float kMoveLimitY = 19.0f;
 
+	/// キャラクターの回転
+	// 回転の速さ[ラジアン/frame]
+	const float kRotSpeed = 0.2f;
 
+	// 弾
+	PlayerBullet* bullet_ = nullptr;
+	void Attack();
 
 };
