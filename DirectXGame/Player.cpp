@@ -3,6 +3,12 @@
 #include "algorithm"
 using namespace KamataEngine;
 
+Player::~Player() {
+	for (PlayerBullet* bullet : bullets_) {
+		delete bullet;
+	}
+}
+
 void Player::Initialize(KamataEngine::Model* model, KamataEngine::Camera* camera) {
 	input_ = KamataEngine::Input::GetInstance();
 	model_ = model;
@@ -16,8 +22,8 @@ void Player::Update() {
 	Rotate();
 	Attack();
 
-	if (bullet_) {
-		bullet_->Update();
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Update();
 	}
 
 	worldTransform_.UpdateMatirx();
@@ -62,19 +68,22 @@ void Player::Rotate() {
 
 void Player::Attack() {
 	if (input_->TriggerKey(DIK_SPACE)) {
+
+		// ジキャラの座標をコピー
+		
 		// 弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_);
 
 		// 弾を登録する
-		bullet_ = newBullet;
+		bullets_.push_back(newBullet);
 	}
 }
 
 
 void Player::Draw(KamataEngine::Camera& camera) { 
 	model_->Draw(worldTransform_, camera, &objectColor_);
-	if (bullet_) {
-		bullet_->Draw(camera);
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Draw(camera);
 	}
 }

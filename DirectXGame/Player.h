@@ -8,11 +8,16 @@
 #include <math\Vector3.h>
 #include "kMath.h"
 #include "PlayerBullet.h"
+#include <list>
 
 class PlayerBullet;
 
 class Player {
 public:
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~Player();
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -49,7 +54,7 @@ private:
 	const float kRotSpeed = 0.2f;
 
 	// 弾
-	PlayerBullet* bullet_ = nullptr;
+	std::list<PlayerBullet*> bullets_;
 	void Attack();
 
 };
