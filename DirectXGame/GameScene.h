@@ -15,7 +15,7 @@
 #include <cmath>
 #include "3d/DebugCamera.h"
 #include "Player.h"
-
+#include "Enemy.h"
 
 /// <summary>
 /// ゲームシーン
@@ -62,6 +62,9 @@ private: // メンバ変数
 
 	Player* player_ = nullptr;
 	KamataEngine::Model* ModelPlayer_ = nullptr;
+
+	Enemy* enemy_ = nullptr;
+	KamataEngine::Model* ModelEnemy_ = nullptr;
 
 
 	/// <summary>

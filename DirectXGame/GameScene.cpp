@@ -7,6 +7,7 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete player_;
+	delete enemy_;
 	delete debugCamera_;
 }
 
@@ -27,6 +28,10 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	player_->Initialize(ModelPlayer_, &camera_);
 
+	ModelEnemy_ = KamataEngine::Model::CreateFromOBJ("cube");
+	enemy_ = new Enemy();
+	enemy_->Initialize(ModelEnemy_, Vector3{0.0f, 1.0f, 10.0f});
+
 	worldTransform_.Initialize();
 	camera_.Initialize();
 
@@ -34,9 +39,10 @@ void GameScene::Initialize() {
 
 void GameScene::Update() { 
 	player_->Update();
+	enemy_->Update();
 
 #ifdef _DEBUG
-	if (input_->TriggerKey(0)) {
+	if (input_->TriggerKey(DIK_0)) {
 		isDebugCameraActive_ = !isDebugCameraActive_;
 	}
 #endif // DEBUG
@@ -79,6 +85,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	player_->Draw(camera_);
+	enemy_->Draw(camera_);
 
 	// 3Dオブジェクト描画後処理
 	KamataEngine::Model::PostDraw();

@@ -14,6 +14,8 @@ KamataEngine::Vector3& operator+=(KamataEngine::Vector3& lhs, const KamataEngine
 
 KamataEngine::Vector3 operator+(const KamataEngine::Vector3& v1, const KamataEngine::Vector3& v2);
 
+KamataEngine::Vector3& operator-=(KamataEngine::Vector3& v1, const KamataEngine::Vector3& v2);
+
 bool IsCollision(const AABB& aabb1, const AABB& aabb2);
 
 // 代入演算子オーバーロード
