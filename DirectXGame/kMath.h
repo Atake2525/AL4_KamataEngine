@@ -48,3 +48,6 @@ KamataEngine::Matrix4x4 MakeAffineMatrix(const KamataEngine::Vector3& scale, con
 
 // 3, 座標変換
 KamataEngine::Vector3 MathTransform(const KamataEngine::Vector3& vector, const KamataEngine::Matrix4x4& matrix);
+
+// ベクトル変換
+KamataEngine::Vector3 TransformNormal(const KamataEngine::Vector3& v, const KamataEngine::Matrix4x4& m);
