@@ -6,6 +6,11 @@
 #include "kMath.h"
 #include "base/TextureManager.h"
 
+// 行動フェーズ
+enum class Phase {
+	Approach, // 接近する
+	Leave,    // 離脱する
+};
 
 class Enemy {
 public:
@@ -30,4 +35,11 @@ private:
 
 	// 移動速度
 	KamataEngine::Vector3 velocity_ = {0.0f, 0.0f, 0.02f};
+
+
+	// 行動
+	void movePhase();
+	Phase phase_ = Phase::Approach;
+	KamataEngine::Vector3 ApproachVelocity = {0.0f, 0.0f, -0.02f};
+	KamataEngine::Vector3 LeaveVelocity = {-0.1f, 0.05f, 0.02f};
 };

@@ -14,8 +14,26 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 }
 
 void Enemy::Update() { 
-	worldTransform_.translation_ -= velocity_;
+	movePhase();
+	//worldTransform_.translation_ -= velocity_;
 	worldTransform_.UpdateMatirx();
+}
+
+void Enemy::movePhase() {
+	switch (phase_) {
+	case Phase::Approach:
+	default:
+		// 移動(ベクトルを加算)
+		worldTransform_.translation_ += ApproachVelocity;
+		if (worldTransform_.translation_.z < 0.0f) {
+			phase_ = Phase::Leave;
+		}
+		break;
+	case Phase::Leave:
+		// 移動(ベクトルを加算)
+		worldTransform_.translation_ += LeaveVelocity;
+		break;
+	}
 }
 
 void Enemy::Draw(Camera& camera) { model_->Draw(worldTransform_, camera, textureHandle_); }

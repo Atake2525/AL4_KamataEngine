@@ -9,7 +9,7 @@ Player::~Player() {
 	}
 }
 
-void Player::Initialize(KamataEngine::Model* model, KamataEngine::Camera* camera) {
+void Player::Initialize(Model* model, KamataEngine::Camera* camera) {
 	input_ = KamataEngine::Input::GetInstance();
 	model_ = model;
 	worldTransform_.Initialize();
